@@ -1,12 +1,15 @@
 import { login, logout, getInfo } from '@/api/user'
 import { getToken, setToken, removeToken } from '@/utils/auth'
 import { resetRouter } from '@/router'
+import { getList } from '@/api/menu'
 
 const getDefaultState = () => {
   return {
     token: getToken(),
     name: '',
-    avatar: ''
+    avatar: '',
+    roles: [],
+    menus: []
   }
 }
 
@@ -24,6 +27,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_MENUS: (state, menus) => {
+    state.menus = menus
   }
 }
 
@@ -32,7 +38,7 @@ const actions = {
   login({ commit }, userInfo) {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
-      login({ username: username.trim(), password: password }).then(response => {
+      login({ account: username.trim(), pwd: password, code: 123 }).then(response => {
         const { data } = response
         commit('SET_TOKEN', data.token)
         setToken(data.token)
@@ -55,6 +61,14 @@ const actions = {
 
         const { name, avatar } = data
 
+        if (!this.menus) {
+          getList().then(response => {
+            const { data } = response
+            commit('SET_MENUS', data)
+          }).catch(error => {
+            reject(error)
+          })
+        }
         commit('SET_NAME', name)
         commit('SET_AVATAR', avatar)
         resolve(data)
