@@ -5,6 +5,15 @@ Vue.use(Router)
 
 /* Layout */
 import Layout from '@/layout'
+import settingRouter from "@/router/modules/setting";
+
+const modulesFiles = require.context('./modules', true, /\.js$/)
+const modules = modulesFiles.keys().reduce((modules, modulePath) => {
+  // const moduleName = modulePath.replace(/^\.\/(.*)\.\w+$/, '$1')
+  const value = modulesFiles(modulePath)
+  modules.push(value.default)
+  return modules
+}, [])
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -31,6 +40,7 @@ import Layout from '@/layout'
  * all roles can be accessed
  */
 export const constantRoutes = [
+  ...modules,
   {
     path: '/login',
     component: () => import('@/views/login/index'),
