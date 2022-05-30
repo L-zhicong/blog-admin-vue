@@ -17,6 +17,18 @@ const settingRouter = {
           name: 'menuManage',
           meta: { title: '菜单管理' },
           component: () => import('@/views/setting/menusManage')
+        },
+        {
+          path: '/setting/systemAdmin',
+          name: 'systemAdmin',
+          meta: { title: '管理员管理' },
+          component: () => import('@/views/setting/adminManage')
+        },
+        {
+          path: '/setting/systemRole',
+          name: 'systemRole',
+          meta: { title: '身份管理' },
+          component: () => import('@/views/setting/roleManage')
         }
       ]
     }
