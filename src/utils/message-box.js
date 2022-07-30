@@ -8,3 +8,14 @@ export function handleCofirm(text) {
     closeOnClickModal: false
   })
 }
+
+// 特殊messagebox,按钮均为操作
+export function handelSpecialConfirm(text, confirmText, cancelText) {
+  return MessageBox.confirm(text, '提示', {
+    confirmButtonText: confirmText,
+    cancelButtonText: cancelText,
+    type: 'warning',
+    closeOnClickModal: false,
+    distinguishCancelAndClose: true // 区别取消操作和关闭
+  })
+}
