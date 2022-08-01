@@ -115,3 +115,15 @@ export function param2Obj(url) {
   })
   return obj
 }
+
+export const dataMillisecond = val => {
+  const time = Date.parse(val)
+  return time / 1000
+}
+
+// 限制日期禁止选择之前的日期
+export const pickerOptions = {
+  disabledDate: time => {
+    return time.getTime() < Date.now() - 8.64e7
+  }
+}
