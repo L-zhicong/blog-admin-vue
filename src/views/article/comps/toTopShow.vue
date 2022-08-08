@@ -1,24 +1,9 @@
 <template>
   <div class="show-pdf">
     <el-dialog :visible.sync="visible" width="800px" :show-close="false" :close-on-click-modal="false">
-      <template slot="title">
-        <div class="pdf-title">
-          <div class="title-left">{{ title }}</div>
-          <div v-if="title === '查看简历'">
-            <el-tooltip class="item" effect="dark" content="打印和保存" placement="bottom-end">
-              <i class="el-icon-printer icon" @click="printAll" />
-            </el-tooltip>
-          </div>
-        </div>
-      </template>
-      <!-- <pdf v-if="title === '查看简历'" ref="pdf" :src="pdfUrl" /> -->
-
-      <el-image v-if="title === '查看证明材料'" :src="proveUrl | imgIsExternal" style="width:100%;height:90%;" fit="scale-down" />
-
       <div v-if="title === '查看文章'" class="ql-container ql-snow">
         <div v-if="articleContent" class="ql-editor" v-html="articleContent.content" />
       </div>
-
       <span slot="footer" class="dialog-footer">
         <el-button @click="closeDialog">返回</el-button>
       </span>
@@ -57,9 +42,6 @@ export default {
   methods: {
     closeDialog() {
       this.$emit('update:visible', false)
-    },
-    printAll() {
-      this.$refs.pdf.print()
     }
   }
 }

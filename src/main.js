@@ -15,6 +15,10 @@ import router from './router'
 import '@/icons' // icon
 import '@/permission' // permission control
 
+// 自定义提示框
+import Toast from '@/components/Toast/index.js'
+Vue.use(Toast)
+
 /**
  * If you don't want to use mock-server
  * you want to use MockJs for mock api

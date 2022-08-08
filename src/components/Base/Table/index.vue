@@ -42,7 +42,7 @@
             <span>{{ row[th.fistTime] }}<br>~<br>{{ row[th.lastTime] }}</span>
           </div>
           <!-- 头像类型数据 -->
-          <el-image v-else-if="th.type === 'imgData'" :src="row[th.prop] | imgIsExternal" fit="scale-down" style="width:2.5rem; height: 2.5rem;border-radius: 50%;">
+          <el-image v-else-if="th.type === 'imgData'" :src="row[th.prop]" fit="scale-down" style="width:2.5rem; height: 2.5rem;border-radius: 50%;">
             <div slot="error" class="img-loading-failed">
               暂无
             </div>
@@ -50,7 +50,7 @@
           <!-- 图片类型数据:可放大 -->
           <el-image
             v-else-if="th.type === 'coverData'"
-            :src="row[th.prop] | imgIsExternal"
+            :src="row[th.prop]"
             fit="scale-down"
             style=" width: 6.25rem;height: 2.5rem;"
             :preview-src-list="[bigImg + row[th.prop]]"
@@ -65,10 +65,6 @@
           <!-- 标签数据 -->
           <el-tag v-else-if="th.type === 'tagData'" :type="row[th.prop] | formatters(th.formatColor)">{{ row[th.prop] | formatters(th.formatText) }}</el-tag>
           <el-tag v-else-if="th.type === 'tagNumData'" :type="row[th.formatNum] | formatters(th.formatColor)">{{ row[th.prop] }}</el-tag>
-          <!-- 特殊标签，适用于用户列表认证状态 -->
-          <el-tag v-else-if="th.type === 'tagSpecialData'" :type="row[th.prop][row[th.prop].length - 1] ? '' : 'info'">{{
-            row[th.prop][row[th.prop].length - 1] || '未认证'
-          }}</el-tag>
           <!-- 操作栏 -->
           <div v-else-if="th.type === 'operation'" class="btn-style">
             <div v-for="(o, oIndex) in th.operation" :key="oIndex">

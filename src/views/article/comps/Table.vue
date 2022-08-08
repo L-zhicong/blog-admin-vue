@@ -19,7 +19,7 @@
 <script>
 import VTable from '@/components/Base/Table/index.vue'
 import { articleTitle } from '@/views/article/data.js'
-import { getList, del } from '@/api/article.js'
+import { getList, del, getInfo } from '@/api/article.js'
 import { handleCofirm } from '@/utils/message-box.js'
 import VtoTopShow from './toTopShow.vue'
 import { delOneData, delLastData } from '@/utils/methods-operation.js'
@@ -68,13 +68,14 @@ export default {
     },
     // 查看文章
     seeArticle(val) {
-      const content = val.content
-      if (content) {
-        this.articleContent = content
-        this.seeDialog = true
-      } else {
+      getInfo(val.id).then(res => {
+        if (res.code === 200) {
+          this.articleContent = res.data.content
+          this.seeDialog = true
+        }
+      }).catch(() => {
         this.$toast.show('该文章不存在！', 'warning')
-      }
+      })
     },
     // 编辑
     updateArticle(val) {
